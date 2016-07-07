@@ -6,7 +6,9 @@ var voice = null;
 
 // Pronounciation fixes for letters the browser can't say right in Finnish
 const CHARACTER_PRONOUNCIATIONS = {
-    "i": "ii"
+    "i": "ii",
+    ",": "pilkku",
+    ".": "piste"
 };
 
 const WORDS = [
