@@ -1,4 +1,28 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+
+.flex-container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info {
+    text-align: center;
+}
+
 .word {
     font-size: 50px;
     text-align: center;
+}
+
+.word::first-letter {
+    font-weight: bold;
 }

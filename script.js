@@ -35,16 +35,30 @@ document.body.addEventListener("keypress", function(e) {
 var CHARACTER_TO_WORD = {
     "a": ["appelsiini"],
     "b": ["banaani"],
-    "h": ["halla"],
-    "k": ["kello", "kuppi"],
+    "c": ["celsius"],
+    "d": ["delfiini"],
+    "e": ["etana"],
+    "f": ["faarao", "farkut"],
+    "g": ["gerbiili", "gorilla"],
+    "h": ["halla", "helle", "helistin"],
+    "i": ["ilta", "isi", "iskä"],
     "j": ["jekku", "jalkapallo", "jakkara"],
+    "k": ["kello", "kuppi", "karhu", "käärme", "kala", "kana"],
+    "l": ["lautanen", "leijona", "lyhty", "lintu"],
     "m": ["mi-ke", "makkara"],
-    "n": ["nökö", "nalle", "nakupelle"],
-    "p": ["puuro", "potta", "pöytä"],
-    "s": ["sininen"],
-    "t": ["taika", "takka"],
+    "n": ["nökö", "nalle", "nakupelle", "norsu"],
+    "o": ["orava", "omena"],
+    "p": ["puuro", "potta", "pöytä", "papukaija"],
+    "q": ["quesadilla"],
+    "r": ["rusina", "raketti"],
+    "s": ["sininen", "soittopeli"],
+    "t": ["taika", "takka", "trampoliini"],
+    "u": ["uimahousut"],
+    "v": ["västäräkki", "voltti"],
+    "w": ["watti"],
     "y": ["yö"],
-    "ä": ["äiti"]
+    "ä": ["äiti"],
+    "ö": ["öylätti"]
 };
 
 function getRandomWordForCharacter(character) {
@@ -53,14 +67,14 @@ function getRandomWordForCharacter(character) {
 }
 
 function showWord(word) {
-    document.querySelector(".word").innerText = word;
+    document.querySelector(".word").innerText = word.toUpperCase();
 }
 
 function sayWordForCharacter(character) {
     var phrase = character;
     var word = character;
 
-    if (CHARACTER_TO_WORD[character] && character === lastCharacter) {
+    if (CHARACTER_TO_WORD[character]) {
         var word = getRandomWordForCharacter(character);
         phrase = phrase + " niin kuin " + word;
     }
