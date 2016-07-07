@@ -1,59 +1,73 @@
 "use strict";
 
-var synth = window.speechSynthesis;
+const synth = window.speechSynthesis;
+const lang = "fi-FI";
 var voice = null;
-var lang = "fi-FI";
-var lastCharacter = null;
 
-var CHARACTER_TO_WORD = {
-    "a": ["appelsiini"],
-    "b": ["banaani"],
-    "c": ["celsius"],
-    "d": ["delfiini"],
-    "e": ["etana"],
-    "f": ["faarao", "farkut"],
-    "g": ["gerbiili", "gorilla"],
-    "h": ["halla", "helle", "helistin"],
-    "i": ["ilta", "isi", "iskä"],
-    "j": ["jekku", "jalkapallo", "jakkara"],
-    "k": ["kello", "kuppi", "karhu", "käärme", "kala", "kana"],
-    "l": ["lautanen", "leijona", "lyhty", "lintu"],
-    "m": ["mi-ke", "makkara"],
-    "n": ["nökö", "nalle", "nakupelle", "norsu"],
-    "o": ["orava", "omena"],
-    "p": ["puuro", "potta", "pöytä", "papukaija"],
-    "q": ["quesadilla"],
-    "r": ["rusina", "raketti"],
-    "s": ["sininen", "soittopeli"],
-    "t": ["taika", "takka", "trampoliini"],
-    "u": ["uimahousut"],
-    "v": ["västäräkki", "voltti"],
-    "w": ["watti"],
-    "y": ["yö"],
-    "ä": ["äiti"],
-    "ö": ["öylätti"]
+// Pronounciation fixes for letters the browser can't say right in Finnish
+const CHARACTER_PRONOUNCIATIONS = {
+    "i": "ii"
 };
 
-function getVoice(lang) {
-    var voices = window.speechSynthesis.getVoices();
-    for (var i = 0; i < voices.length; i++) {
-        if (voices[i].lang === lang) {
-            return voices[i];
+const WORDS = [
+    "amme", "appelsiini", "aurinko",
+    "banaani",
+    "celsius",
+    "delfiini",
+    "etana", "elokuva",
+    "faarao", "farkut",
+    "gerbiili", "gorilla",
+    "haarukka", "halla", "hattara", "helle", "helistin", "hömppä", "höpsö",
+    "ilta", "isi", "iskä",
+    "jekku", "jalkapallo", "jakkara", "juna",
+    "kakku", "kameli", "karkki", "kello", "kiivi", "kilpikonna", "kuppi", "karhu", "koira", "käärme", "kala", "kana", "kesä",
+        "kevät", "kännykkä",
+    "lamppu", "lapsi", "lasi", "lautanen", "leijona", "leikki", "lentokone", "liukumäki", "lyhty", "lintu",
+    "mi-ke", "makkara", "myyrä", "muurahainen", "möhköfantti", "mörkö",
+    "naru", "nökö", "nalle", "nakupelle", "norsu",
+    "orava", "omena",
+    "paloauto", "piirakka", "pilli", "poliisi", "potta", "puuro", "pöytä", "papukaija",
+    "quesadilla",
+    "rusina", "raketti",
+    "sauna", "sininen", "soittopeli", "suihku", "syksy",
+    "taika", "talvi", "takka", "talvi", "tarra", "telkkari", "tietokone", "tikkari", "timantti", "trampoliini",
+    "uimahousut",
+    "veitsi", "västäräkki", "voltti",
+    "watti",
+    "yö",
+    "zumba",
+    "äiti",
+    "öylätti"
+];
+
+// Munge the words array into a convenient hash indexed by the starting letter
+var CHARACTER_TO_WORD = (function(words) {
+    return words.reduce((acc, word) => {
+        var letter = word[0];
+        if (!acc[letter]) {
+            acc[letter] = [];
         }
-    }
-    return undefined;
-}
+        acc[letter].push(word);
+        return acc;
+    }, {})
+}(WORDS));
 
-function findVoice() {
-    voice = getVoice(lang);
-}
-
-findVoice();
 if (speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = findVoice;
+    speechSynthesis.onvoiceschanged = function() {
+        function findVoice(lang) {
+            var voices = window.speechSynthesis.getVoices();
+            for (var i = 0; i < voices.length; i++) {
+                if (voices[i].lang === lang) {
+                    return voices[i];
+                }
+            }
+            return undefined;
+        }
+        voice = findVoice(lang);
+    }
 }
 
-document.body.addEventListener("keypress", function(e) {
+document.body.addEventListener("keypress", e => {
     if (synth.speaking) {
         return false;
     }
@@ -70,22 +84,21 @@ function showWord(word) {
     document.querySelector(".word").innerText = word.toUpperCase();
 }
 
+// Utter something like "s is for snail" (fi. "e niinkuin etana")
 function sayWordForCharacter(character) {
-    var phrase = character;
+    // Apply a pronounciation fix if exists
+    var phrase = CHARACTER_PRONOUNCIATIONS[character] || character;
     var word = character;
 
     if (CHARACTER_TO_WORD[character]) {
-        var word = getRandomWordForCharacter(character);
+        word = getRandomWordForCharacter(character);
         phrase = phrase + " niin kuin " + word;
     }
     showWord(word);
 
     var utterThis = new SpeechSynthesisUtterance(phrase);
     utterThis.voice = voice;
-
     utterThis.pitch = 1;
     utterThis.rate = 0.9;
     synth.speak(utterThis);
-
-    lastCharacter = character;
 }
