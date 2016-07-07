@@ -43,9 +43,9 @@ const WORDS = [
 ];
 
 // Munge the words array into a convenient hash indexed by the starting letter
-var CHARACTER_TO_WORD = (function(words) {
+const CHARACTER_TO_WORD = (function(words) {
     return words.reduce((acc, word) => {
-        var letter = word[0];
+        const letter = word[0];
         if (!acc[letter]) {
             acc[letter] = [];
         }
@@ -57,7 +57,7 @@ var CHARACTER_TO_WORD = (function(words) {
 if (speechSynthesis.onvoiceschanged !== undefined) {
     speechSynthesis.onvoiceschanged = function() {
         function findVoice(lang) {
-            var voices = window.speechSynthesis.getVoices();
+            const voices = window.speechSynthesis.getVoices();
             for (var i = 0; i < voices.length; i++) {
                 if (voices[i].lang === lang) {
                     return voices[i];
@@ -73,12 +73,12 @@ document.body.addEventListener("keypress", e => {
     if (synth.speaking) {
         return false;
     }
-    var str = ("" + String.fromCharCode(e.keyCode)).toLowerCase();
+    const str = ("" + String.fromCharCode(e.keyCode)).toLowerCase();
     sayWordForCharacter(str[0]);
 });
 
 function getRandomWordForCharacter(character) {
-    var len = CHARACTER_TO_WORD[character].length;
+    const len = CHARACTER_TO_WORD[character].length;
     return CHARACTER_TO_WORD[character][Math.round(Math.random() * (len - 1))]
 }
 
@@ -98,7 +98,7 @@ function sayWordForCharacter(character) {
     }
     showWord(word);
 
-    var utterThis = new SpeechSynthesisUtterance(phrase);
+    const utterThis = new SpeechSynthesisUtterance(phrase);
     utterThis.voice = voice;
     utterThis.pitch = 1;
     utterThis.rate = 0.9;
