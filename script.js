@@ -5,33 +5,6 @@ var voice = null;
 var lang = "fi-FI";
 var lastCharacter = null;
 
-function getVoice(lang) {
-    var voices = window.speechSynthesis.getVoices();
-    for (var i = 0; i < voices.length; i++) {
-        if (voices[i].lang === lang) {
-            return voices[i];
-        }
-    }
-    return undefined;
-}
-
-function findVoice() {
-    voice = getVoice(lang);
-}
-
-findVoice();
-if (speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = findVoice;
-}
-
-document.body.addEventListener("keypress", function(e) {
-    if (synth.speaking) {
-        return false;
-    }
-    var str = ("" + String.fromCharCode(e.keyCode)).toLowerCase();
-    sayWordForCharacter(str[0]);
-});
-
 var CHARACTER_TO_WORD = {
     "a": ["appelsiini"],
     "b": ["banaani"],
@@ -60,6 +33,33 @@ var CHARACTER_TO_WORD = {
     "ä": ["äiti"],
     "ö": ["öylätti"]
 };
+
+function getVoice(lang) {
+    var voices = window.speechSynthesis.getVoices();
+    for (var i = 0; i < voices.length; i++) {
+        if (voices[i].lang === lang) {
+            return voices[i];
+        }
+    }
+    return undefined;
+}
+
+function findVoice() {
+    voice = getVoice(lang);
+}
+
+findVoice();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = findVoice;
+}
+
+document.body.addEventListener("keypress", function(e) {
+    if (synth.speaking) {
+        return false;
+    }
+    var str = ("" + String.fromCharCode(e.keyCode)).toLowerCase();
+    sayWordForCharacter(str[0]);
+});
 
 function getRandomWordForCharacter(character) {
     var len = CHARACTER_TO_WORD[character].length;
