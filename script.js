@@ -1,17 +1,17 @@
 "use strict";
 
-const synth = window.speechSynthesis;
-const lang = "fi-FI";
+var synth = window.speechSynthesis;
+var lang = "fi-FI";
 var voice = null;
 
 // Pronounciation fixes for letters the browser can't say right in Finnish
-const CHARACTER_PRONOUNCIATIONS = {
+var CHARACTER_PRONOUNCIATIONS = {
     "i": "ii",
     ",": "pilkku",
     ".": "piste"
 };
 
-const WORDS = [
+var WORDS = [
     "aasi", "aita", "amme", "appelsiini", "aurinko", "auto",
     "banaani", "banaani", "banaani", "blimpsisblömpsis böbberöö",
     "celsius", "cowboy",
@@ -43,9 +43,9 @@ const WORDS = [
 ];
 
 // Munge the words array into a convenient hash indexed by the starting letter
-const CHARACTER_TO_WORD = (function(words) {
-    return words.reduce((acc, word) => {
-        const letter = word[0];
+var CHARACTER_TO_WORD = (function(words) {
+    return words.reduce(function(acc, word) {
+        var letter = word[0];
         if (!acc[letter]) {
             acc[letter] = [];
         }
@@ -55,7 +55,7 @@ const CHARACTER_TO_WORD = (function(words) {
 }(WORDS));
 
 function findVoice(lang) {
-    const voices = window.speechSynthesis.getVoices();
+    var voices = window.speechSynthesis.getVoices();
     for (var i = 0; i < voices.length; i++) {
         if (voices[i].lang === lang) {
             return voices[i];
@@ -71,18 +71,18 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
     }
 }
 
-document.body.addEventListener("keypress", e => {
-    const str = ("" + String.fromCharCode(e.keyCode)).toLowerCase();
+document.body.addEventListener("keypress", function(e) {
+    var str = ("" + String.fromCharCode(e.keyCode)).toLowerCase();
     sayWordForCharacter(str[0]);
 });
 
-document.body.addEventListener("click", e => {
-    const character = getRandomCharacter();
+document.body.addEventListener("click", function(e) {
+    var character = getRandomCharacter();
     sayWordForCharacter(character);
 });
 
-document.body.addEventListener("touchstart", e => {
-    const character = getRandomCharacter();
+document.body.addEventListener("touchstart", function(e) {
+    var character = getRandomCharacter();
     sayWordForCharacter(character);
 });
 
@@ -91,7 +91,7 @@ function getRandomCharacter() {
 }
 
 function getRandomWordForCharacter(character) {
-    const len = CHARACTER_TO_WORD[character].length;
+    var len = CHARACTER_TO_WORD[character].length;
     return CHARACTER_TO_WORD[character][Math.round(Math.random() * (len - 1))]
 }
 
@@ -133,7 +133,7 @@ function sayWordForCharacter(character) {
     showCharacter(character);
     hideInfo();
 
-    const utterThis = new SpeechSynthesisUtterance(phrase);
+    var utterThis = new SpeechSynthesisUtterance(phrase);
     utterThis.voice = voice;
     utterThis.pitch = 1;
     utterThis.rate = 0.9;
