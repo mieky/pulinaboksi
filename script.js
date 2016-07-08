@@ -21,7 +21,7 @@ const WORDS = [
     "gerbiili", "gorilla",
     "haarukka", "halla", "hattara", "helle", "helistin", "hömppä", "höpsö",
     "ilta", "imuri", "intiaani", "isi", "iskä",
-    "jekku", "jalkapallo", "jakkara", "jukurtti", "juna", "jäätelö",
+    "jekku", "jalkapallo", "jakkara", "jukurtti", "juna", "jänis", "jäätelö",
     "kakku", "kameli", "karkki", "kello", "kivi", "kiivi", "kilpikonna", "kuppi", "karhu", "koira", "käärme", "kala",
         "kana", "kesä", "kevät", "kännykkä",
     "lamppu", "lapsi", "lasi", "lautanen", "leijona", "leikki", "lentokone", "liukumäki", "lyhty", "lintu",
@@ -83,6 +83,18 @@ function showWord(word) {
     document.querySelector(".word").innerText = word.toUpperCase();
 }
 
+function showCharacter(character) {
+    var charactersToShow = character.toUpperCase();
+    if (character.toLowerCase() !== character.toUpperCase()) {
+        charactersToShow += " " + character.toLowerCase();
+    }
+    document.querySelector(".character").innerText = charactersToShow;
+}
+
+function hideInfo() {
+    document.querySelector(".info").classList.add("successfully-used");
+}
+
 // Utter something like "s is for snail" (fi. "e niinkuin etana")
 function sayWordForCharacter(character) {
     if (synth.speaking) {
@@ -98,6 +110,8 @@ function sayWordForCharacter(character) {
         phrase = phrase + " niin kuin " + word;
     }
     showWord(word);
+    showCharacter(character);
+    hideInfo();
 
     const utterThis = new SpeechSynthesisUtterance(phrase);
     utterThis.voice = voice;

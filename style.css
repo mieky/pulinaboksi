@@ -15,14 +15,28 @@ body {
 }
 
 .info {
+    color: #615b6b;
+    opacity: 1;
+    text-align: center;
+    transition: opacity 2s ease-in-out;
+}
+
+.character {
+    color: #03a9f4;
+    font-size: 20vh;
     text-align: center;
 }
 
 .word {
+    color: #ff9800;
     font-size: 50px;
     text-align: center;
 }
 
 .word::first-letter {
     font-weight: bold;
+}
+
+.successfully-used {
+    opacity: 0;
 }
