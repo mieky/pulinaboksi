@@ -70,9 +70,6 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 }
 
 document.body.addEventListener("keypress", e => {
-    if (synth.speaking) {
-        return false;
-    }
     const str = ("" + String.fromCharCode(e.keyCode)).toLowerCase();
     sayWordForCharacter(str[0]);
 });
@@ -88,6 +85,10 @@ function showWord(word) {
 
 // Utter something like "s is for snail" (fi. "e niinkuin etana")
 function sayWordForCharacter(character) {
+    if (synth.speaking) {
+        synth.cancel();
+    }
+
     // Apply a pronounciation fix if exists
     var phrase = CHARACTER_PRONOUNCIATIONS[character] || character;
     var word = character;
