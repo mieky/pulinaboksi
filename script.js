@@ -81,6 +81,11 @@ document.body.addEventListener("click", e => {
     sayWordForCharacter(character);
 });
 
+document.body.addEventListener("touchstart", e => {
+    const character = getRandomCharacter();
+    sayWordForCharacter(character);
+});
+
 function getRandomCharacter() {
     return String.fromCharCode(Math.round(Math.random() * (122 - 97) + 97));
 }
