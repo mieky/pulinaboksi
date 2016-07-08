@@ -14,7 +14,7 @@ const CHARACTER_PRONOUNCIATIONS = {
 const WORDS = [
     "aasi", "aita", "amme", "appelsiini", "aurinko", "auto",
     "banaani", "banaani", "banaani", "blimpsisblömpsis böbberöö",
-    "celsius",
+    "celsius", "cowboy",
     "delfiini", "dinosaurus", "donitsi",
     "etana", "elokuva",
     "faarao", "farkut",
