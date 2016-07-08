@@ -26,7 +26,7 @@ const WORDS = [
         "kana", "kesä", "kevät", "kännykkä",
     "lamppu", "lapsi", "lasi", "lautanen", "leijona", "leikki", "lentokone", "liukumäki", "lyhty", "lintu",
     "mi-ke", "makkara", "makarooni", "mopo", "myyrä", "muurahainen", "möhköfantti", "mörkö",
-    "naru", "nökö", "nalle", "nakupelle", "nenä", "norsu", "näkkäri",
+    "naru", "nökö", "nalle", "nakupelle", "nenä", "norsu", "näk'käri",
     "orava", "omena",
     "paloauto", "parkkipaikka", "piirakka", "piimä", "pilli", "poliisi", "potta", "puuro", "pöytä", "papukaija",
     "quesadilla",
@@ -80,7 +80,11 @@ function getRandomWordForCharacter(character) {
 }
 
 function showWord(word) {
-    document.querySelector(".word").innerText = word.toUpperCase();
+    var displayStr = "&nbsp;";
+    if (word.length > 1) {
+        displayStr = word.toUpperCase();
+    }
+    document.querySelector(".word").innerHTML = displayStr;
 }
 
 function showCharacter(character) {
