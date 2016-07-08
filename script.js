@@ -21,7 +21,7 @@ var WORDS = [
     "gerbiili", "gorilla",
     "haarukka", "halla", "hattara", "helle", "helistin", "hömppä", "höpsö",
     "ilta", "imuri", "intiaani", "isi", "iskä",
-    "jekku", "jalkapallo", "jakkara", "jukurtti", "juna", "jänis", "jäätelö",
+    "jekku", "jalkapallo", "jakkara", "jukurtti", "ju-na", "jänis", "jäätelö",
     "kakku", "kameli", "karkki", "kello", "kivi", "kiivi", "kilpikonna", "kuppi", "karhu", "koira", "käärme", "kala",
         "kana", "kesä", "kevät", "kännykkä",
     "lamppu", "lapsi", "lasi", "lautanen", "leijona", "leikki", "lentokone", "liukumäki", "lyhty", "lintu",
@@ -98,7 +98,7 @@ function getRandomWordForCharacter(character) {
 function showWord(word) {
     var displayStr = "&nbsp;";
     if (word.length > 1) {
-        displayStr = word.toUpperCase();
+        displayStr = word.toUpperCase().split(/[\-']/).join("");
     }
     document.querySelector(".word").innerHTML = displayStr;
 }
