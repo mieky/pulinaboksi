@@ -54,17 +54,19 @@ const CHARACTER_TO_WORD = (function(words) {
     }, {})
 }(WORDS));
 
+function findVoice(lang) {
+    const voices = window.speechSynthesis.getVoices();
+    for (var i = 0; i < voices.length; i++) {
+        if (voices[i].lang === lang) {
+            return voices[i];
+        }
+    }
+    return undefined;
+}
+
+voice = findVoice(lang);
 if (speechSynthesis.onvoiceschanged !== undefined) {
     speechSynthesis.onvoiceschanged = function() {
-        function findVoice(lang) {
-            const voices = window.speechSynthesis.getVoices();
-            for (var i = 0; i < voices.length; i++) {
-                if (voices[i].lang === lang) {
-                    return voices[i];
-                }
-            }
-            return undefined;
-        }
         voice = findVoice(lang);
     }
 }
