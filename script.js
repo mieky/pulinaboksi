@@ -74,6 +74,15 @@ document.body.addEventListener("keypress", e => {
     sayWordForCharacter(str[0]);
 });
 
+document.body.addEventListener("click", e => {
+    const character = getRandomCharacter();
+    sayWordForCharacter(character);
+});
+
+function getRandomCharacter() {
+    return String.fromCharCode(Math.round(Math.random() * (122 - 97) + 97));
+}
+
 function getRandomWordForCharacter(character) {
     const len = CHARACTER_TO_WORD[character].length;
     return CHARACTER_TO_WORD[character][Math.round(Math.random() * (len - 1))]

@@ -25,12 +25,14 @@ body {
     color: #03a9f4;
     font-size: 20vh;
     text-align: center;
+    user-select: none;
 }
 
 .word {
     color: #ff9800;
     font-size: 50px;
     text-align: center;
+    user-select: none;
 }
 
 .word::first-letter {
