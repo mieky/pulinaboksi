@@ -8,7 +8,20 @@ var voice = null;
 var CHARACTER_PRONOUNCIATIONS = {
     "i": "ii",
     ",": "pilkku",
-    ".": "piste"
+    ".": "piste",
+    ";": "puolipiste",
+    ":": "kaksoispiste",
+    ">": "suurempi kuin merkki",
+    "?": "kysymysmerkki",
+    "!": "huutomerkki",
+    "∞": "ääretön",
+    ")": "oikea kaarisulje",
+    "]": "oikea hakasulje",
+    "}": "oikea aaltosulje",
+    "≠": "erisuuri",
+    "≈": "likimäärin",
+    "√": "neliöjuuri",
+    "å": "ruotsalainen å"
 };
 
 var WORDS = [
